@@ -21,7 +21,7 @@ class _AddFilmState extends State<AddFilm> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text("Add"),),
+      appBar: AppBar(title: Text("Add"),backgroundColor: Colors.black,),
       body: Container(
         margin: EdgeInsets.all(10),
         child: Column(
@@ -29,7 +29,7 @@ class _AddFilmState extends State<AddFilm> {
             SizedBox(height: 20,),
             TextField(
               controller: title,
-              style: TextStyle(fontSize: 20,color: Colors.purple),
+              style: TextStyle(fontSize: 20,color: Colors.black),
               decoration: InputDecoration(
                 labelText:"Title",
                 border:OutlineInputBorder(borderRadius: BorderRadius.all(Radius.circular(40))),
@@ -38,7 +38,7 @@ class _AddFilmState extends State<AddFilm> {
             SizedBox(height: 20,),
             TextField(
               controller: duration,
-              style: TextStyle(fontSize: 20,color: Colors.purple),
+              style: TextStyle(fontSize: 20,color: Colors.black),
               decoration: InputDecoration(
                 labelText:"duration",
                 border:OutlineInputBorder(borderRadius: BorderRadius.all(Radius.circular(40))),
@@ -47,13 +47,22 @@ class _AddFilmState extends State<AddFilm> {
             SizedBox(height: 20,),
               ElevatedButton(
                   onPressed:() async{
-                    int rep = await sqLdb.insertData("INSERT INTO 'films' (title,duration) VALUES('${title.text}',${int.parse(duration.text)})");
+                    int rep = await sqLdb.insertData(
+                        "INSERT INTO 'films' (title,duration) VALUES('${title.text}',${int.parse(duration.text)})"
+                    );
                   if (rep>0)
                     Navigator.of(context).pushAndRemoveUntil(
                         MaterialPageRoute(builder: (context)=>Home()),
                             (route) => false);
                     },
-                  child: Container(child: Icon(Icons.add,size:30,),width:double.infinity,))
+                  child: Container(
+                    child: Icon(Icons.add,size:30,),
+                    width:double.infinity,
+                    decoration: BoxDecoration(color: Colors.black,
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  ),
+              ),
           ],
         ),
       ),

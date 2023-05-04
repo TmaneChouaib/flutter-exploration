@@ -2,11 +2,14 @@ import 'package:films/Home.dart';
 import 'package:flutter/material.dart';
 import 'SQLDB.dart';
 
+
 class UpdateFilm extends StatefulWidget {
   final id;
   final title;
   final duration;
+
   const UpdateFilm ({Key? key, this.id , this.title , this.duration }) : super(key: key);
+
 
   @override
   State<UpdateFilm> createState() => _UpdateFilmState();
@@ -31,7 +34,7 @@ class _UpdateFilmState extends State<UpdateFilm> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text("Update Film"),),
+      appBar: AppBar(title: Text("Update Film"),backgroundColor: Colors.black),
       body: Container(
         margin: EdgeInsets.all(10),
         child: Column(
@@ -39,7 +42,7 @@ class _UpdateFilmState extends State<UpdateFilm> {
             SizedBox(height: 20,),
             TextField(
               controller: title,
-              style: TextStyle(fontSize: 20,color: Colors.purple),
+              style: TextStyle(fontSize: 20,color: Colors.black),
               decoration: InputDecoration(
                 labelText:"Title",
                 border:OutlineInputBorder(borderRadius: BorderRadius.all(Radius.circular(40))),
@@ -48,7 +51,7 @@ class _UpdateFilmState extends State<UpdateFilm> {
             SizedBox(height: 20,),
             TextField(
               controller: duration,
-              style: TextStyle(fontSize: 20,color: Colors.purple),
+              style: TextStyle(fontSize: 20,color: Colors.black),
               decoration: InputDecoration(
                 labelText:"duration",
                 border:OutlineInputBorder(borderRadius: BorderRadius.all(Radius.circular(40))),
@@ -67,8 +70,9 @@ class _UpdateFilmState extends State<UpdateFilm> {
                     MaterialPageRoute(builder: (context)=>Home()),
                         (route) => false);
               }
-            }, child: Icon(Icons.update))
-          ],
+            } ,
+                child: Container(child: Icon(Icons.update,size:30,),width:double.infinity,
+                    color: Colors.black))          ],
         ),
       ),
     );

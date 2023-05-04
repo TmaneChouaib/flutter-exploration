@@ -1,11 +1,11 @@
 import 'dart:async';
-
 import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart';
 
 
 class SQLdb{
   static Database? _db;
+
 
   Future<Database?> get db async{
     if(_db == null){
@@ -16,7 +16,8 @@ class SQLdb{
     }
   }
 
-  //--------------------------------------------------------
+
+  //----------------------------------------------------------------------------
   Future<Database> initialisation() async{
     String db_path = await getDatabasesPath();
     String path = join(db_path,"db_films");
@@ -24,7 +25,8 @@ class SQLdb{
     return mydb;
   }
 
-  //--------------------------------------------------------
+
+  //----------------------------------------------------------------------------
   _createDB(Database db,int version) async{
     await db.execute('''
     CREATE TABLE "films" (
@@ -32,33 +34,35 @@ class SQLdb{
     "title" TEXT NOT NULL,
     "duration" INT NOT NULL )
     ''');
-    print("--------------------------DB CREATED!--------------------------");
+    print("----------------------------DB CREATED!----------------------------");
   }
 
-  //--------------------------CRUD-------------------------
-  //--------------------------Insert-----------------------
+
+  //CRUD------------------------------------------------------------------------
+  //INSERT----------------------------------------------------------------------
   Future<int> insertData(String sql) async{
     Database? mydb = await db;
     int rep = await mydb!.rawInsert(sql);
     return rep;
   }
-  //--------------------------Read-------------------------
+  //GET-------------------------------------------------------------------------
   Future<List<Map>> getData(String sql) async{
     Database? mydb = await db;
     List<Map> rep = await mydb!.rawQuery(sql);
     return rep;
   }
-  //--------------------------Update-----------------------
+  //UPDATE----------------------------------------------------------------------
   Future<int> updateData(String sql) async{
     Database? mydb = await db;
     int rep = await mydb!.rawUpdate(sql);
     return rep;
   }
-  //--------------------------Delete-----------------------
+  //DELETE----------------------------------------------------------------------
   Future<int> deleteData(String sql) async{
     Database? mydb = await db;
     int rep = await mydb!.rawDelete(sql);
     return rep;
   }
+
 
 }
