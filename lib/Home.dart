@@ -1,4 +1,5 @@
 import 'package:films/SQLDB.dart';
+import 'package:films/UpdateFilm.dart';
 import 'package:flutter/material.dart';
 
 
@@ -6,9 +7,11 @@ import 'package:flutter/material.dart';
 class Home extends StatefulWidget {
   const Home({Key? key}) : super(key: key);
 
+
   @override
   State<Home> createState() => _HomeState();
 }
+
 
 class _HomeState extends State<Home> {
   SQLdb sqLdb = SQLdb();
@@ -35,18 +38,6 @@ class _HomeState extends State<Home> {
         margin: EdgeInsets.all(10),
         child:  Column(
           children: [
- /*           ElevatedButton(
-                onPressed: ()async{
-                  int rep =await sqLdb.insertData("INSERT INTO 'films'(title,duration) VALUES ('Hdidane','90')");
-                    print("${rep}");
-            },
-                child: Text("Insert")),
-            ElevatedButton(
-                onPressed: ()async{
-                  List<Map> films = await sqLdb.getData("SELECT * FROM 'films'");
-                  print("${films}");
-                },
-                child: Text("Display")),*/
                 Expanded(flex: 10,
                     child: Container(
                       child: FutureBuilder(
@@ -65,13 +56,34 @@ class _HomeState extends State<Home> {
                                   trailing: Row(
                                     mainAxisSize: MainAxisSize.min ,
                                     children: [
-                                      TextButton(onPressed: (){}, child: Icon(Icons.edit, color:Colors.green , size: 15,)),
-                                      TextButton(onPressed: (){}, child: Icon(Icons.delete, color:Colors.red , size: 15,))
-
+                                      TextButton(onPressed: (){
+                                        Navigator.of(context).push(
+                                          MaterialPageRoute(builder: (context)=>UpdateFilm(
+                                              id: listFilms[index]['id'],
+                                            title: listFilms[index]['title'],
+                                          duration: listFilms[index]['duration'],))
+                                        );
+                                      }, child: Icon(Icons.edit, color:Colors.green , size: 15,)),
+                                      TextButton(onPressed: (){
+                                        showDialog(context: context, builder: (context)=>AlertDialog(
+                                          title: Text("Are shure you want to delete ${listFilms[index]['title']}"),
+                                          actions: [
+                                            ElevatedButton(onPressed: () async{
+                                              int rep = await sqLdb.deleteData("Delete From 'films' where id= ${listFilms[index]['id']}");
+                                              if (rep>0){
+                                                Navigator.of(context).pop();
+                                                setState(() {
+                                                });
+                                              }
+                                            }, child: Text("Yes")),
+                                            ElevatedButton(onPressed: (){
+                                              Navigator.of(context).pop();
+                                            }, child: Text("No"))
+                                          ],
+                                        ));
+                                      }, child: Icon(Icons.delete, color:Colors.red , size: 15,))
                                     ],
-
                                   ),
-
                                 ),
                               );
                             }) ;
@@ -84,10 +96,8 @@ class _HomeState extends State<Home> {
                 Expanded(flex: 2,
                     child: Container(
                 ))
-
           ],
         ),
-        
     ),
     );
   }

@@ -2,17 +2,22 @@ import 'package:films/Home.dart';
 import 'package:films/SQLDB.dart';
 import 'package:flutter/material.dart';
 
+
 class AddFilm extends StatefulWidget {
   const AddFilm({Key? key}) : super(key: key);
+
 
   @override
   State<AddFilm> createState() => _AddFilmState();
 }
 
+
 class _AddFilmState extends State<AddFilm> {
   TextEditingController title = TextEditingController();
   TextEditingController duration= TextEditingController();
   SQLdb sqLdb=SQLdb();
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
