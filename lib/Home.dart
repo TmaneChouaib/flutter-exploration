@@ -24,6 +24,12 @@ class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      floatingActionButton: FloatingActionButton(
+        onPressed: (){
+          Navigator.of(context).pushNamed("addFilm");
+        },
+        child: Icon(Icons.add),
+      ),
       appBar: AppBar(title:Text("Home") ,),
       body: Container(
         margin: EdgeInsets.all(10),
@@ -41,7 +47,7 @@ class _HomeState extends State<Home> {
                   print("${films}");
                 },
                 child: Text("Display")),*/
-                Expanded(flex: 11,
+                Expanded(flex: 10,
                     child: Container(
                       child: FutureBuilder(
                         future: getAllFilms(),
@@ -75,9 +81,8 @@ class _HomeState extends State<Home> {
                         },
                       ),
                 )),
-                Expanded(flex: 1,
+                Expanded(flex: 2,
                     child: Container(
-                  color: Colors.lightBlueAccent,
                 ))
 
           ],
